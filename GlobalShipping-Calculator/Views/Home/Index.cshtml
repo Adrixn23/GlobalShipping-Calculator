@@ -1,81 +1,94 @@
 @model GlobalShipping_Calculator.Models.ShippingViewModel
 
 @{
-    ViewData["Title"] = "Calculadora de Envíos Internacionales";
+    ViewData["Title"] = "Calculadora";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
-                    <h2 class="mb-0 fw-bold">Calculadora de Tarifas de Envío</h2>
-                    <p class="mb-0 opacity-75">Sistema Automatizado GlobalShipping</p>
-                </div>
-                <div class="card-body p-5">
-                    <form asp-action="Index" method="post">
-                        
-                        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-                        {
-                            <div class="alert alert-danger" role="alert">
-                                @Model.ErrorMessage
-                            </div>
-                        }
-
-                        <div class="mb-4">
-                            <label asp-for="SelectedCountryCode" class="form-label fw-bold text-secondary"></label>
-                            <select asp-for="SelectedCountryCode" class="form-select form-select-lg" required>
-                                <option value="">-- Seleccione un país de destino --</option>
-                                @foreach (var country in Model.AvailableCountries)
-                                {
-                                    <option value="@country.Code">@country.Name</option>
-                                }
-                            </select>
-                            <span asp-validation-for="SelectedCountryCode" class="text-danger small mt-1"></span>
-                        </div>
-
-                        <div class="mb-5">
-                            <label asp-for="Weight" class="form-label fw-bold text-secondary"></label>
-                            <div class="input-group input-group-lg">
-                                <input asp-for="Weight" type="number" step="0.1" min="0.1" class="form-control" placeholder="Ej: 2.5" required />
-                                <span class="input-group-text bg-light text-muted">Kg</span>
-                            </div>
-                            <span asp-validation-for="Weight" class="text-danger small mt-1"></span>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success btn-lg fw-bold py-3 shadow-sm">
-                                Calcular Costo de Envío
-                            </button>
-                        </div>
-                    </form>
-
-                    @if (Model.QuoteResult != null)
-                    {
-                        <div class="mt-5 border rounded-4 p-4 bg-light shadow-sm">
-                            <h4 class="fw-bold mb-4 text-center text-primary">Resultado del Cálculo</h4>
-                            
-                            <div class="row text-center mb-4">
-                                <div class="col-6 border-end">
-                                    <p class="text-muted text-uppercase small fw-bold mb-1">Destino</p>
-                                    <h5 class="fw-bold text-dark">@Model.QuoteResult.CountryName</h5>
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-muted text-uppercase small fw-bold mb-1">Peso del Paquete</p>
-                                    <h5 class="fw-bold text-dark">@Model.QuoteResult.Weight Kg</h5>
-                                </div>
-                            </div>
-                            
-                            <div class="text-center rounded-3 p-4 bg-white border border-2 border-success border-opacity-25">
-                                <p class="text-muted text-uppercase small fw-bold mb-1">Costo Total de Envío</p>
-                                <h1 class="text-success fw-bolder mb-0 display-4">
-                                    $@Model.QuoteResult.TotalCost.ToString("0.00") <span class="fs-4 text-muted">USD</span>
-                                </h1>
-                            </div>
-                        </div>
-                    }
-                </div>
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-6 col-md-8">
+        
+        <div class="dashboard-card">
+            
+            <div class="text-center">
+                <h1 class="display-title">Cálculo de Tarifas</h1>
+                <p class="text-subtitle">Cotizador internacional de envíos</p>
             </div>
+
+            <form asp-action="Index" method="post">
+                
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+                        <!-- Icono SVG Alerta -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <div>@Model.ErrorMessage</div>
+                    </div>
+                }
+
+                <div class="mb-4">
+                    <label asp-for="SelectedCountryCode" class="control-label">
+                        <!-- Icono SVG Mapa -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        País de Destino
+                    </label>
+                    <select asp-for="SelectedCountryCode" class="form-select" required>
+                        <option value="" disabled selected>-- Seleccione el destino --</option>
+                        @foreach (var country in Model.AvailableCountries)
+                        {
+                            <option value="@country.Code">@country.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="SelectedCountryCode" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Weight" class="control-label">
+                        <!-- Icono SVG Peso -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        Peso del Paquete (Kg)
+                    </label>
+                    <div class="input-group">
+                        <input asp-for="Weight" type="number" step="0.1" min="0.1" class="form-control" placeholder="0.0" required />
+                        <span class="input-group-text text-muted bg-white">Kg</span>
+                    </div>
+                    <span asp-validation-for="Weight" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <!-- Icono SVG Calculadora -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="8" y2="18"></line><line x1="12" y1="14" x2="12" y2="18"></line></svg>
+                        Procesar Cotización
+                    </button>
+                </div>
+            </form>
+
+            @if (Model.QuoteResult != null)
+            {
+                <div class="result-panel text-center">
+                    <h6 class="text-uppercase text-muted fw-bold mb-3">Resultado de la Operación</h6>
+                    
+                    <div class="d-flex justify-content-center gap-4 mb-3">
+                        <div>
+                            <span class="text-muted small d-block">Destino</span>
+                            <span class="fw-bold">@Model.QuoteResult.CountryName</span>
+                        </div>
+                        <div class="border-start"></div>
+                        <div>
+                            <span class="text-muted small d-block">Peso</span>
+                            <span class="fw-bold">@Model.QuoteResult.Weight Kg</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <span class="text-muted small d-block mb-1">Tarifa Final (USD)</span>
+                        <div class="result-value">
+                            $@Model.QuoteResult.TotalCost.ToString("0.00")
+                        </div>
+                    </div>
+                </div>
+            }
+
         </div>
     </div>
 </div>

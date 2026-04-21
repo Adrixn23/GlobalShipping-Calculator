@@ -1,31 +1,116 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
+/* ESTILO DASHBOARD CORPORATIVO MINIMALISTA */
 
 body {
-  margin-bottom: 60px;
+    /* Tipografía nativa del sistema (a prueba de fallos) */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa !important;
+    color: #212529;
+    -webkit-font-smoothing: antialiased;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Contenedor principal estilo tarjeta de dashboard */
+.dashboard-card {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    padding: 2rem;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Títulos y textos */
+.display-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.5rem;
+}
+
+.text-subtitle {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/* Labels de formulario */
+.control-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Inputs limpios */
+.form-control, .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: #212529;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #495057;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.15);
+}
+
+/* Botón principal */
+.btn-primary {
+    background-color: #111827; /* Dark slate premium */
+    border-color: #111827;
+    border-radius: 6px;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background-color: #374151; /* Lighter slate on hover */
+    border-color: #374151;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Override colores de Bootstrap */
+.text-primary {
+    color: #111827 !important;
+}
+
+/* Panel de resultados */
+.result-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.result-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #198754; /* Verde éxito */
+    line-height: 1;
+}
+
+/* Animación sutil */
+.fade-in {
+    animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
