@@ -1,8 +1,85 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model GlobalShipping_Calculator.Models.ShippingViewModel
+
+@{
+    ViewData["Title"] = "Calculadora de Envíos Internacionales";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
+                    <h2 class="mb-0 fw-bold">Calculadora de Tarifas de Envío</h2>
+                    <p class="mb-0 opacity-75">Sistema Automatizado GlobalShipping</p>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="Index" method="post">
+                        
+                        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @Model.ErrorMessage
+                            </div>
+                        }
+
+                        <div class="mb-4">
+                            <label asp-for="SelectedCountryCode" class="form-label fw-bold text-secondary"></label>
+                            <select asp-for="SelectedCountryCode" class="form-select form-select-lg" required>
+                                <option value="">-- Seleccione un país de destino --</option>
+                                @foreach (var country in Model.AvailableCountries)
+                                {
+                                    <option value="@country.Code">@country.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="SelectedCountryCode" class="text-danger small mt-1"></span>
+                        </div>
+
+                        <div class="mb-5">
+                            <label asp-for="Weight" class="form-label fw-bold text-secondary"></label>
+                            <div class="input-group input-group-lg">
+                                <input asp-for="Weight" type="number" step="0.1" min="0.1" class="form-control" placeholder="Ej: 2.5" required />
+                                <span class="input-group-text bg-light text-muted">Kg</span>
+                            </div>
+                            <span asp-validation-for="Weight" class="text-danger small mt-1"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg fw-bold py-3 shadow-sm">
+                                Calcular Costo de Envío
+                            </button>
+                        </div>
+                    </form>
+
+                    @if (Model.QuoteResult != null)
+                    {
+                        <div class="mt-5 border rounded-4 p-4 bg-light shadow-sm">
+                            <h4 class="fw-bold mb-4 text-center text-primary">Resultado del Cálculo</h4>
+                            
+                            <div class="row text-center mb-4">
+                                <div class="col-6 border-end">
+                                    <p class="text-muted text-uppercase small fw-bold mb-1">Destino</p>
+                                    <h5 class="fw-bold text-dark">@Model.QuoteResult.CountryName</h5>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted text-uppercase small fw-bold mb-1">Peso del Paquete</p>
+                                    <h5 class="fw-bold text-dark">@Model.QuoteResult.Weight Kg</h5>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center rounded-3 p-4 bg-white border border-2 border-success border-opacity-25">
+                                <p class="text-muted text-uppercase small fw-bold mb-1">Costo Total de Envío</p>
+                                <h1 class="text-success fw-bolder mb-0 display-4">
+                                    $@Model.QuoteResult.TotalCost.ToString("0.00") <span class="fs-4 text-muted">USD</span>
+                                </h1>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
