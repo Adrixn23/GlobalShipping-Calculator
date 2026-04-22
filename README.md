@@ -14,7 +14,7 @@ Interfaz **Premium Dark Minimalist** implementada con iconos SVG nativos para ga
 
 | Formulario de Cotización | Resultado de Cálculo |
 | :---: | :---: |
-| ![Inicio](./docs/img/screenshot_inicio.jpeg) | ![Resultado](./docs/img/screenshot_resultado.jpeg) |
+| ![Inicio](./docs/img/screenshot_inicio.png) | ![Resultado](./docs/img/screenshot_resultado.png) |
 
 > **Nota:** Por favor, guarda tus capturas de pantalla en la carpeta `docs/img/` con los nombres `screenshot_inicio.png` y `screenshot_resultado.png` para que se visualicen correctamente.
 
