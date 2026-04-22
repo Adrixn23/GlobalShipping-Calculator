@@ -4,19 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GlobalShipping_Calculator.Models
 {
-    // Este ViewModel sirve como puente exclusivo para la Vista.
-    // Cumple con SRP, separando los datos de visualización del Modelo de Dominio.
     public class ShippingViewModel
     {
         public IEnumerable<Country> AvailableCountries { get; set; } = new List<Country>();
 
-        [Required(ErrorMessage = "Debe seleccionar un país de destino.")]
-        [Display(Name = "País de Destino")]
+        [Required(ErrorMessage = "Seleccione el destino.")]
         public string SelectedCountryCode { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El peso es obligatorio.")]
-        [Range(0.1, double.MaxValue, ErrorMessage = "El peso debe ser mayor a cero.")]
-        [Display(Name = "Peso del Paquete (Kg)")]
+        [Required(ErrorMessage = "Peso obligatorio.")]
+        [Range(0.1, 500.0, ErrorMessage = "El peso debe estar entre 0.1 y 500 Kg.")]
         public decimal Weight { get; set; }
 
         public ShippingQuote? QuoteResult { get; set; }

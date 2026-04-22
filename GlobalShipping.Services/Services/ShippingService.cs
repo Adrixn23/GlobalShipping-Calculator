@@ -9,40 +9,36 @@ namespace GlobalShipping.Services.Services
 {
     public class ShippingService : IShippingService
     {
-        private readonly ICountryRepository _countryRepository;
-        private readonly IEnumerable<IShippingStrategy> _shippingStrategies;
+        private readonly ICountryRepository _repo;
+        private readonly IEnumerable<IShippingStrategy> _strategies;
 
-        public ShippingService(
-            ICountryRepository countryRepository, 
-            IEnumerable<IShippingStrategy> shippingStrategies)
+        public ShippingService(ICountryRepository repo, IEnumerable<IShippingStrategy> strategies)
         {
-            _countryRepository = countryRepository;
-            _shippingStrategies = shippingStrategies;
+            _repo = repo;
+            _strategies = strategies;
         }
 
-        public async Task<ShippingQuote> CalculateShippingAsync(string countryCode, decimal weight)
+        public async Task<ShippingQuote> CalculateShippingAsync(string code, decimal weight)
         {
-            if (weight <= 0)
-                throw new ArgumentException("El peso debe ser mayor a cero.", nameof(weight));
+            // Validaciones basicas de entrada
+            if (weight <= 0) throw new ArgumentException("Peso invalido.");
 
-            // Validamos que el país exista en nuestra base de datos
-            var country = await _countryRepository.GetCountryByCodeAsync(countryCode);
-            if (country == null)
-                throw new ArgumentException($"El país con código '{countryCode}' no está soportado o no existe.", nameof(countryCode));
+            var country = await _repo.GetCountryByCodeAsync(code);
+            if (country == null) throw new Exception("Destino no soportado.");
 
-            //  Buscamos la estrategia correcta (Open/Closed Principle en acción)
-            var strategy = _shippingStrategies.FirstOrDefault(s => s.CanHandle(countryCode));
-            if (strategy == null)
-                throw new InvalidOperationException($"No se encontró una estrategia de envío para el país '{countryCode}'.");
+            // Validacion de negocio: limite de carga
+            if (weight > country.MaxWeight)
+                throw new Exception($"El limite para {country.Name} es de {country.MaxWeight}kg.");
 
-            //Calculamos usando la tarifa de la BD y la regla específica de la estrategia
-            var totalCost = strategy.Calculate(weight, country.BaseShippingRate);
+            // Buscamos la logica de calculo segun el pais (Strategy Pattern)
+            var strategy = _strategies.FirstOrDefault(s => s.CanHandle(code));
+            if (strategy == null) throw new Exception("Falta definir regla de calculo para este destino.");
 
             return new ShippingQuote
             {
                 CountryName = country.Name,
                 Weight = weight,
-                TotalCost = totalCost
+                TotalCost = strategy.Calculate(weight, country.BaseShippingRate)
             };
         }
     }
