@@ -14,9 +14,9 @@ Interfaz **Premium Dark Minimalist** implementada con iconos SVG nativos para ga
 
 | Formulario de Cotización | Resultado de Cálculo |
 | :---: | :---: |
-| ![Inicio](./docs/img/screenshot_inicio.png) | ![Resultado](./docs/img/screenshot_resultado.png) |
+| ![Inicio](./docs/img/screenshot_inicio.jpeg) | ![Resultado](./docs/img/screenshot_resultado.jpeg) |
 
-> **Nota:** Por favor, guarda tus capturas de pantalla en la carpeta `docs/img/` con los nombres `screenshot_inicio.png` y `screenshot_resultado.png` para que se visualicen correctamente.
+> **Nota:** Por favor, guarda tus capturas de pantalla en la carpeta `docs/img/` con los nombres `screenshot_inicio.jpeg` y `screenshot_resultado.jpeg` para que se visualicen correctamente.
 
 ---
 
@@ -49,7 +49,7 @@ Esta solución es un caso de estudio sobre el cumplimiento estricto de los princ
 
 ---
 
-##  Reglas de Negocio Vigentes
+## Reglas de Negocio Vigentes
 | Destino | Código | Tarifa (USD/Kg) | Límite de Peso |
 | :--- | :---: | :---: | :---: |
 | **India** | IN | $5.00 | 50 Kg |
@@ -81,6 +81,3 @@ Esta solución es un caso de estudio sobre el cumplimiento estricto de los princ
 ## 🎓 Autor
 *   **Adrian Francisco Brito Nelkitts** - *Desarrollo de Software / Arquitectura*
 *   **Institución:** ITLA - Instituto Tecnológico de Las Américas
-
-
-
