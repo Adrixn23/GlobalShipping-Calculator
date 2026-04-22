@@ -16,8 +16,6 @@ Interfaz **Premium Dark Minimalist** implementada con iconos SVG nativos para ga
 | :---: | :---: |
 | ![Inicio](./docs/img/screenshot_inicio.jpeg) | ![Resultado](./docs/img/screenshot_resultado.jpeg) |
 
-> **Nota:** Por favor, guarda tus capturas de pantalla en la carpeta `docs/img/` con los nombres `screenshot_inicio.jpeg` y `screenshot_resultado.jpeg` para que se visualicen correctamente.
-
 ---
 
 ## Características Principales
