@@ -38,7 +38,7 @@ El sistema sigue una **Arquitectura en Capas (N-Layer)** física y lógicamente 
 
 
 
-## 🛠️ Principios SOLID Aplicados
+## Principios SOLID Aplicados
 Esta solución es un caso de estudio sobre el cumplimiento estricto de los principios **SOLID**:
 
 *   **S (Single Responsibility):** Cada estrategia de cálculo tiene una única responsabilidad: gestionar su propia región y fórmula.
@@ -49,7 +49,7 @@ Esta solución es un caso de estudio sobre el cumplimiento estricto de los princ
 
 ---
 
-## 📋 Reglas de Negocio Vigentes
+##  Reglas de Negocio Vigentes
 | Destino | Código | Tarifa (USD/Kg) | Límite de Peso |
 | :--- | :---: | :---: | :---: |
 | **India** | IN | $5.00 | 50 Kg |
