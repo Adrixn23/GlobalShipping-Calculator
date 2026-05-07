@@ -78,4 +78,4 @@ Esta solución es un caso de estudio sobre el cumplimiento estricto de los princ
 
 ## 🎓 Autor
 *   **Adrian Francisco Brito Nelkitts** - *Desarrollo de Software / Arquitectura*
-*   **Institución:** ITLA - Instituto Tecnológico de Las Américas
+
